@@ -1,6 +1,7 @@
 import openai 
 from pydantic import BaseModel
 import json
+import random
 
 class NextPlayerActions(BaseModel):
     options: list[str]
@@ -44,6 +45,8 @@ def generate_random_scene(character_name):
 
 
 def get_player_choice(next_actions, scene, character_name):
+    random_player_choice = random.randint(0,len(next_actions)-1)
+    return random_player_choice
     actions_as_numbered_list = "\n".join([f"{i+1}. {action}" for i, action in enumerate(next_actions)])
     prompt_player_for_action = f"{scene}\n\n{character_name}, you have the following options for what to do next:\n\n{actions_as_numbered_list}\n"
     reprompt = True
